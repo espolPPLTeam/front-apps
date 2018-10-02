@@ -37,7 +37,7 @@
   export default {
     methods: {
       att () {
-        console.log('Redireccionando')
+        // console.log('Redireccionando')
         window.location.replace('/att')
       }
     }
