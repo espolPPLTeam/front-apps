@@ -2,56 +2,6 @@ import Vue from 'vue'
 import router from '../router'
 
 export default {
-  login ({commit, dispatch}, payload) {
-    commit('setError', null)
-    commit('setLoading', true)
-    Vue.http.post('/api/session/login/dev', payload)
-      .then((res) => {
-        commit('setLoading', false)
-        if (res.body.estado) {
-          router.push('/')
-          dispatch('obtenerUsuario')
-        } else {
-          commit('setError', res.body)
-        }
-      }, (err) => {
-        commit('setLoading', false)
-        commit('setError', err)
-      })
-  },
-  obtenerUsuario ({commit}) {
-    commit('setError', null)
-    commit('setLoading', true)
-    Vue.http.get('api/session/usuario_conectado')
-      .then((res) => {
-        commit('setLoading', false)
-        if (res.body.estado) {
-          commit('setUsuario', res.body.datos)
-        } else {
-          commit('setError', res.body)
-          router.push('/login')
-        }
-      }, (err) => {
-        commit('setLoading', false)
-        commit('setError', {mensaje: err.body.errorMensaje, codigo: err.body.errorCodigo})
-        router.push('/login')
-      })
-  },
-  logout ({commit}) {
-    commit('setError', null)
-    commit('setLoading', true)
-    Vue.http.get('/api/session/logout')
-      .then((res) => {
-        commit('setLoading', false)
-        if (res.ok) {
-          router.push('/login')
-          commit('setUsuario', null)
-        } else {}
-      }, (err) => {
-        commit('setLoading', false)
-        commit('setError', err)
-      })
-  },
   getLecciones ({commit}) {
     commit('setError', null)
     commit('setLoading', true)
@@ -68,20 +18,52 @@ export default {
         commit('setError', err)
       })
   },
-  getPreguntas ({ commit }) {
-    commit('setError', null)
-    commit('setLoading', true)
-    Vue.http.get('/api/preguntas/')
-      .then((response) => {
-        commit('setLoading', false)
-        if (response.body.estado) {
-          commit('setPreguntas', response.body.datos)
-        } else {
-          commit('setError', response.body)
-        }
+
+  getMaterias ({ commit, state }) {
+    Vue.http.get('/api/ppl/materias')
+      .then((res) => {
+        commit('setMaterias', res.body.datos)
       }, (err) => {
         commit('setError', err)
-        commit('setLoading', false)
       })
+  },
+  getCapitulos ({ commit }) {
+    Vue.http.get('/api/ppl/capitulos')
+      .then((res) => {
+        commit('setCapitulos', res.body.datos)
+      }, (err) => {
+        commit('setError', err)
+      })
+  },
+  login ({ commit }, payload) {
+    const url = '/api/login/session'
+    return Vue.http.post(url, { email: payload.email, password: payload.password })
+      .then((resp) => {
+        commit('setHeaders', resp.body.datos)
+        localStorage.setItem('x-access-token', resp.body.datos)
+        localStorage.setItem('email', this.email)
+        return Promise.resolve(true)
+      }, (err) => {
+        Promise.reject(err.body.message)
+      })
+  },
+  getUsuario ({ commit, dispatch }) {
+    Vue.http.get('/api/login/session')
+      .then((res) => {
+        commit('setUsuario', res.body.datos)
+        dispatch('getMaterias')
+        dispatch('getCapitulos')
+        dispatch('lecciones/getLecciones')
+        router.push('/')
+      }, (err) => {
+        commit('setError', err)
+      })
+  },
+  logout ({ commit }) {
+    localStorage.removeItem('x-access-token')
+    commit('setHeaders', null)
+    commit('setLoggedIn', false)
+    commit('setUsuario', null)
+    router.push('/')
   }
 }

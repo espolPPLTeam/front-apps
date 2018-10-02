@@ -6,6 +6,7 @@ import { store } from '../store'
 
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
+import Grupos from '@/components/Grupos'
 
 // Rúbrica
 import IngresarRubrica from '@/components/Rubrica/IngresarRubrica'
@@ -13,6 +14,8 @@ import RubricaCSV from '@/components/Rubrica/RubricaCSV'
 
 // Preguntas
 import VerPregunta from '@/components/Preguntas/VerPregunta'
+import BancoDePreguntas from '@/components/Preguntas/BancoDePreguntas'
+import CrearPregunta from '@/components/Preguntas/CrearPregunta'
 
 // Lecciones
 import VerLecciones from '@/components/Lecciones/VerLecciones'
@@ -23,8 +26,6 @@ import CrearLeccion from '@/components/Lecciones/CrearLeccion'
 // import LeccionPanel from '@/components/Lecciones/LeccionPanel'
 import SeleccionEstudiante from '@/components/Shared/SeleccionEstudiante'
 import CalificarLeccion from '@/components/Lecciones/CalificarLeccion'
-
-import BancoDePreguntas from '@/components/Preguntas/BancoDePreguntas'
 
 Vue.use(Router)
 
@@ -52,6 +53,16 @@ export default new Router({
       path: '/rubrica/csv',
       name: 'RubricaCSV',
       component: RubricaCSV
+    },
+    {
+      path: '/preguntas/crear',
+      name: 'CrearPregunta',
+      component: CrearPregunta
+    },
+    {
+      path: '/preguntas',
+      name: 'BancoDePregunta',
+      component: BancoDePreguntas
     },
     {
       path: '/preguntas/:id',
@@ -115,11 +126,9 @@ export default new Router({
       }
     },
     {
-
-      path: '/preguntas',
-      name: 'BancoDePregunta',
-      component: BancoDePreguntas
-
+      path: '/grupos',
+      name: 'Grupos',
+      component: Grupos
     }
   ]
 })

@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import moment from 'moment'
@@ -10,6 +8,7 @@ import VueCharts from 'hchs-vue-charts'
 import App from './App'
 import router from './router'
 import { store } from './store'
+
 // Shared components
 import Navbar from '@/components/Shared/Navbar'
 import Rubrica from '@/components/Shared/Rubrica'
@@ -17,6 +16,7 @@ import CalificarPregunta from '@/components/Shared/CalificarPregunta'
 import DescripcionPregunta from '@/components/Shared/DescripcionPregunta'
 import CalificarRespuesta from '@/components/Shared/CalificarRespuesta'
 import GruposLeccion from '@/components/Shared/GruposLeccion'
+import CrearPregunta from '@/components/Shared/CrearPregunta'
 
 Vue.use(VueCharts)
 Vue.use(window.VueCharts)
@@ -28,6 +28,7 @@ Vue.component('calificar-pregunta', CalificarPregunta)
 Vue.component('calificar-respuesta', CalificarRespuesta)
 Vue.component('descripcion-pregunta', DescripcionPregunta)
 Vue.component('grupos-leccion', GruposLeccion)
+Vue.component('crear-pregunta', CrearPregunta)
 
 Vue.config.productionTip = false
 

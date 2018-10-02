@@ -32,6 +32,11 @@
             </v-list-tile-action>
           </v-list-tile>
         </v-list-group>
+        <v-list-tile router :to="'/grupos'">
+          <v-list-tile-content>
+            <v-list-tile-title>Grupos</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-divider></v-divider>
         <v-list-tile @click="logout">
           <v-list-tile-content>
@@ -57,7 +62,7 @@
             </v-list-tile>
           </v-list>
         </v-menu>
-        <v-btn flat>Grupos</v-btn>
+        <v-btn flat router :to="'/grupos'">Grupos</v-btn>
         <v-btn flat @click.native="logout">
           <v-icon>exit_to_app</v-icon>
         </v-btn>

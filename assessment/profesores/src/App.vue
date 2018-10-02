@@ -20,9 +20,21 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('obtenerUsuario')
-    this.$store.dispatch('getLecciones')
-    this.$store.dispatch('getPreguntas')
+    const token = localStorage.getItem('x-access-token')
+    if (token !== null && token !== undefined && token !== '') {
+      this.$store.commit('setHeaders', token)
+      this.$store.commit('setLoggedIn', true)
+      this.$store.dispatch('getUsuario')
+      this.$store.dispatch('lecciones/getLecciones')
+      this.$store.dispatch('getMaterias')
+      this.$store.dispatch('getCapitulos')
+    } else {
+      console.log('No tiene token')
+      localStorage.removeItem('x-access-token')
+      this.$store.commit('setHeaders', null)
+      this.$store.commit('setLoggedIn', false)
+      this.$router.push('/login')
+    }
   },
   data () {
     return {}
