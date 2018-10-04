@@ -4,12 +4,23 @@ import Home from './views/Home.vue'
 
 Vue.use(Router)
 
+const Estudiantes = resolve => {
+  require.ensure(['./components/Estudiantes/Estudiantes.vue'], () => {
+    resolve(require('./components/Estudiantes/Estudiantes.vue'))
+  }, 'profesor')
+}
+
 export default new Router({
   routes: [
     {
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/estudiantes',
+      name: 'estudiantes',
+      component: Estudiantes
     },
     {
       path: '/about',
