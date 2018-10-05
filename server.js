@@ -18,19 +18,30 @@ const PORT = 8010
 
 http.createServer(function (request, response) {
     let filePath = request.url
+    console.log(`filePath: ${filePath}`)
     let basePath = 'login'
     if (filePath === '/login') {
-    	basePath = 'login'
-    	filePath = '/'
+      basePath = 'login'
+      filePath = '/'
     } else if (filePath === '/ppl/estudiantes') {
-    	basePath = 'ppl/estudiantes'
+      basePath = 'ppl/estudiantes'
+    } else if (filePath === '/assessment/profesores' || filePath.startsWith('/assessment/profesores')) {
+      basePath = 'assessment/profesores'
     }
+
     const extname = path.extname(filePath)
     if (filePath == '/') {
         filePath = `./${basePath}/dist/index.html`
+    } else if (filePath === '/assessment/profesores') {
+        filePath = `./${basePath}/dist/index.html`
+    } else if (filePath.startsWith('/assessment/profesores')) {
+        filePath = filePath.split('/').slice(3).join('/')
     } else {
-    	filePath = filePath.split('/').slice(2).join('/')
+      filePath = filePath.split('/').slice(2).join('/')
     }
+
+    console.log(`basePath: ${basePath}`)
+    
     let contentType = 'text/html'
     switch (extname) {
         case '.js':
@@ -62,8 +73,9 @@ http.createServer(function (request, response) {
     }
     let p = path.join(__dirname, filePath)
     if (p[p.length - 1] === '/') {
-    	p = p.substring(0, p.length - 1)
+      p = p.substring(0, p.length - 1)
     }
+    console.log(`filePath: ${filePath}\n`)
     fs.readFile(p, function(error, content) {
         if (error) {
             if(error.code == 'ENOENT'){

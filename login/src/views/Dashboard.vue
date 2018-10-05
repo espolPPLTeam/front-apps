@@ -12,7 +12,7 @@
     <navbar></navbar>
     <v-layout row wrap align-center justify-center>
       <v-flex xs12 sm5 class="text-xs-center">
-        <v-card raised hover class="card-materia">
+        <v-card raised hover class="card-materia" @click.native="assessment">
           <v-card-title>
             <v-icon class="text-xs-center mx-auto" large>assessment</v-icon>            
           </v-card-title>
@@ -60,6 +60,9 @@
       att () {
         // console.log('Redireccionando')
         window.location.replace('/att')
+      },
+      assessment () {
+        window.location.replace('/assessment/profesores')
       }
     }
   }
