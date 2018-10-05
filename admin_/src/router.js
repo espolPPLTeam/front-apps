@@ -10,7 +10,20 @@ const Estudiantes = resolve => {
   }, 'profesor')
 }
 
+const Materias = resolve => {
+  require.ensure(['./components/Materias/Materias.vue'], () => {
+    resolve(require('./components/Materias/Materias.vue'))
+  }, 'profesor')
+}
+
+const Paralelos = resolve => {
+  require.ensure(['./components/Paralelos/Paralelos.vue'], () => {
+    resolve(require('./components/Paralelos/Paralelos.vue'))
+  }, 'profesor')
+}
+
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -21,6 +34,16 @@ export default new Router({
       path: '/estudiantes',
       name: 'estudiantes',
       component: Estudiantes
+    },
+    {
+      path: '/materias',
+      name: 'materias',
+      component: Materias
+    },
+    {
+      path: '/paralelos',
+      name: 'paralelos',
+      component: Paralelos
     },
     {
       path: '/about',

@@ -53,8 +53,8 @@ export default {
       menuItems: [
         {icon: 'school', title: 'Profesores', link: '/profesores'},
         {icon: 'group', title: 'Estudiantes', link: '/estudiantes'},
-        {icon: 'library_books', title: 'Materias', link: '/estudiantes'},
-        {icon: 'class', title: 'Paralelos', link: '/estudiantes'},
+        {icon: 'library_books', title: 'Materias', link: '/materias'},
+        {icon: 'class', title: 'Paralelos', link: '/paralelos'},
         {icon: 'exit_to_app', title: 'Salir', link: '/'}
       ]
     }
