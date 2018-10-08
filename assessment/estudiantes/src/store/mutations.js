@@ -57,13 +57,13 @@ export default {
     state.lecciones = leccionesOrdenadasPorFechas
   },
   setDatosEstudiante (state, datos) {
-    state.estudiante.nombres = datos.estudiante.nombres
-    state.estudiante.apellidos = datos.estudiante.apellidos
-    state.estudiante.correo = datos.estudiante.correo
-    state.estudiante.id = datos.estudiante._id
-    state.usuarioDatos = datos.estudiante
-    state.estudiante.grupoId = datos.grupo._id
-    state.estudiante.paraleloId = datos.paralelo._id
+    state.estudiante.nombres = datos.nombres
+    state.estudiante.apellidos = datos.apellidos
+    state.estudiante.correo = datos.correo
+    state.estudiante.id = datos._id
+    // state.usuarioDatos = datos.estudiante
+    state.estudiante.grupoId = datos.grupos[0]
+    state.estudiante.paraleloId = datos.paralelos[0]
     // console.log(grupo)
   },
   setDatosMuchos (state, datos) {

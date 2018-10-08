@@ -1,5 +1,6 @@
 import Vue from 'vue'
-
+import VueResource from 'vue-resource'
+Vue.use(VueResource)
 // import estimacion from './dump/data/leccion.estimacion.json'
 // import estimacionTexto from './dump/data/leccion.estimacion.texto.json'
 // import tutorial from './dump/data/leccion.tutorial.json'

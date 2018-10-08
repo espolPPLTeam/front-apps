@@ -16,7 +16,7 @@ import './permission'
 
 import router from '@/router'
 import { store } from '@/store'
-let url = process.env.NODE_ENV === 'production' ? '/tomando_leccion' : 'http://localhost:8000/tomando_leccion'
+let url = process.env.NODE_ENV === 'production' ? '/leccion' : 'http://localhost:8011/leccion'
 
 locale.use(lang)
 Vue.use(Vuetify)

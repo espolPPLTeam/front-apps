@@ -8,10 +8,10 @@ export default async (url = '', data = {}, type = 'GET') => {
     } else {
       axios({ method: type, url, data })
         .then((response) => {
-          if (response.data.estado) {
-            resolve(response.data.datos)
+          if (response.data) {
+            resolve(response.data.datos, response.data.estado)
           } else {
-            reject(response.data.datos)
+            reject(response.data)
           }
         })
         .catch((error) => {

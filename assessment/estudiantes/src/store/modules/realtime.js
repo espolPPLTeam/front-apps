@@ -17,11 +17,10 @@ const realtimeModule = {
     estado: 'paralelo-no-esta-dando-leccion'
   },
   actions: {
-    Codigo ({commit, dispatch}, codigo) {
+    Codigo ({commit, dispatch}, { paraleloId, correo, codigo }) {
       return new Promise((resolve, reject) => {
-        VerificarCodigo(codigo).then((resp) => {
-          commit('SET_ESTADOS', resp)
-          commit('SET_ESTADO')
+        VerificarCodigo({ paraleloId, correo, codigo }).then((resp) => {
+          commit('SET_ESTADO', resp.mensaje)
           resolve()
         }).catch(error => {
           reject(error)
@@ -69,27 +68,28 @@ const realtimeModule = {
     SET_TIEMPO (state, payload) {
       state.tiempo = payload
     },
-    SET_ESTADO (state) {
+    SET_ESTADO (state, payload) {
+      state.estado = payload
       // ingresoCodigo  empezo empezoTiempo
       // 0 0 0 = el paralelo no esta dando leccion
       // 0 1 0 = tiene que ingresar el codigo
       // 1 1 0 = tiene que esperar a que empiece la leccion
       // 0 1 1 = al ingresar el codigo redirigirlo directamente
       // 1 1 1 = redirigirlo directamente
-      let empezoTiempo = state.leccionEstado.empezoTiempo
-      let empezo = state.leccionEstado.empezo
-      let ingresoCodigo = state.estudiante.ingresoCodigo
-      if (!empezo) {
-        state.estado = 'paralelo-no-esta-dando-leccion'
-      } else if (empezo && empezoTiempo && ingresoCodigo) {
-        state.estado = 'redirigirlo-directamente'
-      } else if (ingresoCodigo && empezo) {
-        state.estado = 'tiene-que-esperar-a-que-empiece-la-leccion'
-      } else if (empezo && empezoTiempo) {
-        state.estado = 'al-ingresar-el-codigo-redirigirlo-directamente'
-      } else if (empezo) {
-        state.estado = 'tiene-que-ingresar-el-codigo'
-      }
+      // let empezoTiempo = state.leccionEstado.empezoTiempo
+      // let empezo = state.leccionEstado.empezo
+      // let ingresoCodigo = state.estudiante.ingresoCodigo
+      // if (!empezo) {
+      //   state.estado = 'paralelo-no-esta-dando-leccion'
+      // } else if (empezo && empezoTiempo && ingresoCodigo) {
+      //   state.estado = 'redirigirlo-directamente'
+      // } else if (ingresoCodigo && empezo) {
+      //   state.estado = 'tiene-que-esperar-a-que-empiece-la-leccion'
+      // } else if (empezo && empezoTiempo) {
+      //   state.estado = 'al-ingresar-el-codigo-redirigirlo-directamente'
+      // } else if (empezo) {
+      //   state.estado = 'tiene-que-ingresar-el-codigo'
+      // }
     },
     SET_LECCION (state, payload) {
       // TODO: debe editarse para coger las preguntas con seccion

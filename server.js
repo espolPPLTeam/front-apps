@@ -25,10 +25,11 @@ http.createServer(function (request, response) {
       filePath = '/'
     } else if (filePath === '/ppl/estudiantes') {
       basePath = 'ppl/estudiantes'
-    } else if (filePath === '/assessment/profesores' || filePath.startsWith('/assessment/profesores')) {
+    } else if (filePath === '/assessment/profesores' || filePath.startsWith('/assessment')) {
+        console.log('entroooooo')
       basePath = 'assessment/profesores'
     }
-
+    console.log('asa', basePath)
     const extname = path.extname(filePath)
     if (filePath == '/') {
         filePath = `./${basePath}/dist/index.html`

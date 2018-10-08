@@ -12,7 +12,7 @@
                   v-model="codigo"
                   :counter="7"
                   :autofocus="true"
-                  :max="7"
+                  maxLength="7"
                   clearable
                   :error-messages="errors.collect('codigo')"
                   v-validate="'required|max:7|numeric'"
@@ -99,7 +99,9 @@ export default {
       let esValido = await this.$validator.validateAll()
       if (esValido) {
         self.snackbar = false
-        await store.dispatch('realtime/Codigo', this.codigo)
+        let paraleloId = store.getters['estudiante/paralelo']
+        let correo = store.getters['estudiante/correo']
+        await store.dispatch('realtime/Codigo', { paraleloId, correo, codigo: this.codigo })
         let { estadoRealtime } = self.$store.getters
         if (estadoRealtime === 'paralelo-no-esta-dando-leccion') {
           self.snackbar = true
