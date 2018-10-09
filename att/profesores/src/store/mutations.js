@@ -30,6 +30,9 @@ export default {
   setPreguntaNueva (state, payload) {
     state.preguntaNueva = payload
   },
+  setHeaders (state, token) {
+    Vue.http.headers.common['x-access-token'] = token
+  },
   setRespuestaNueva (state, payload) {
     state.respuestaNueva = payload
   },

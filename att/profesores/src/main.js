@@ -17,13 +17,15 @@ import Navbar from './components/Shared/Navbar'
 
 let url
 if (process.env.NODE_ENV === 'production') {
-  url = '/att'
+  url = '/api/att/sockets'
 } else {
-  url = 'http://localhost:8000/att'
+  url = 'http://localhost:8003/api/att/sockets'
 }
-
+// var socket = io.connect('localhost:3000', {
+//   'path': '/path/to/socket.io';
+// });
 Vue.use(Vuetify)
-Vue.use(VueSocketio, io(url), { store })
+Vue.use(VueSocketio, io(url, { path: '/api/att/sockets', transports: ['websocket', 'polling', 'flashsocket'] }), { store })
 
 Vue.config.productionTip = false
 

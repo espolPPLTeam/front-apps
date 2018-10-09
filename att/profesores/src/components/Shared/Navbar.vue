@@ -8,7 +8,7 @@
           <v-list-tile slot="activator">
             <v-list-tile-content>
               <v-list-tile-title>
-                {{ usuario.correo.split('@')[0] }}
+                {{ usuario.email.split('@')[0] }}
               </v-list-tile-title>
               <v-list-tile-sub-title>
                 {{ paraleloActual.nombre }} - {{ paraleloActual.curso }}

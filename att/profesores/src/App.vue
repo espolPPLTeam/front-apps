@@ -9,7 +9,7 @@
       <v-bottom-nav absolute :value="true" :active.sync="e3" color="white">
         <v-badge v-model="preguntaNueva" color="red darken-1" overlap>
           <v-icon color="white" slot="badge">!</v-icon>
-          <v-btn flat color="teal" router :to="'/preguntas'">
+          <v-btn flat color="teal" router :to="'/'">
             <span class="mt-1">Preguntas</span>
             <v-icon>fas fa-question</v-icon>
           </v-btn>
@@ -34,9 +34,27 @@
 export default {
   created () {
     this.$store.commit('sockets/setSocket', this.$socket)
+    const token = localStorage.getItem('x-access-token')
+    if (token !== null && token !== undefined && token !== '') {
+      this.$store.commit('setHeaders', token)
+      this.$store.commit('setLoggedIn', true)
+      this.$store.dispatch('getUsuario')
+      // this.$store.dispatch('lecciones/getLecciones')
+      // this.$store.dispatch('getMaterias')
+      // this.$store.dispatch('getCapitulos')
+    } else {
+      console.log('No tiene token')
+      localStorage.removeItem('x-access-token')
+      this.$store.commit('setHeaders', null)
+      this.$store.commit('setLoggedIn', false)
+      this.$router.push('/')
+    }
   },
   mounted () {
-    this.$store.dispatch('getLoggedUser')
+    const token = localStorage.getItem('x-access-token')
+    if (token !== null && token !== undefined && token !== '') {
+      this.$store.dispatch('getUsuario')
+    }
   },
   computed: {
     preguntaNueva () {
