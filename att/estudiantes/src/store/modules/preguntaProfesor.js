@@ -46,10 +46,11 @@ const actions = {
       preguntaId: state.preguntaProfesor.preguntaId,
       texto: payload,
       creador: {
-        email: rootState.usuario.email,
+        correo: rootState.usuario.email,
         matricula: rootState.usuario.matricula,
         nombres: rootState.usuario.nombres,
         apellidos: rootState.usuario.apellidos,
+        tipo: 'estudiante',
         _id: rootState.usuario._id
       },
       createdAt: new Date()
@@ -60,15 +61,15 @@ const actions = {
       .then((response) => {
         if (response.body.estado) {
           commit('setEstadoRespuesta', 'enviada')
-          commit('SOCKET_responder', data)
+          commit('sockets/SOCKET_responder', data, { root: true })
         } else {
-          commit('setError', response.body)
-          commit('setEstadoRespuesta', 'no enviada')
+          commit('setError', response.body, { root: true })
+          commit('setEstadoRespuesta', 'no enviada', { root: true })
         }
       }, (err) => {
         console.log(err)
-        commit('setError', err)
-        commit('setEstadoRespuesta', 'no enviada')
+        commit('setError', err, { root: true })
+        commit('setEstadoRespuesta', 'no enviada', { root: true })
       })
   }
 }

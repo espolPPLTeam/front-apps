@@ -21,7 +21,7 @@ const mutations = {
     state.io.emit('unirseAParalelo', { paraleloId })
   },
   SOCKET_responder (state, payload) {
-    state.io.emit('responder', payload)
+    state.io.emit('respuestaEstudiante', payload)
   },
   // SOCKETS RECIBIDOS
   SOCKET_UNIDO_PARALELO (state) {
@@ -29,6 +29,7 @@ const mutations = {
     router.push('/preguntar')
   },
   SOCKET_PREGUNTA_PROFESOR (state, payload) {
+    console.log('responde')
     state.preguntaProfesor = payload[0]
     if (state.pagina !== 'Responder') {
       state.preguntaProfesorNueva = true

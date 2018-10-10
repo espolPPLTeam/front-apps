@@ -80,14 +80,14 @@ export default {
       // let paralelo =
       // let creador =
       // let paraleloId =
-      const data = {
-        ...pregunta,
-        paralelo: 'asda',
-        creador: 'asdsa',
-        paraleloId: 'asdsad'
-      }
+      // const data = {
+      //   ...pregunta,
+      //   paralelo: 'asda',
+      //   creador: 'asdsa',
+      //   paraleloId: 'asdsad'
+      // }
       this.$store.dispatch('preguntasEstudiante/anadirPregunta', pregunta)
-      this.$store.commit('sockets/SOCKET_preguntaEstudiante', data)
+      // this.$store.commit('sockets/SOCKET_preguntaEstudiante', data)
       this.pregunta = ''
     },
     keypressed (e) {

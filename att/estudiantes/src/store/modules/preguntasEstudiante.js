@@ -62,7 +62,7 @@ const actions = {
         if (response.body.estado) {
           commit('preguntaEnviada', payload)
           data.preguntaId = response.body.datos.id
-          // commit('sockets/SOCKET_preguntaEstudiante', data)
+          commit('sockets/SOCKET_preguntaEstudiante', data, { root: true })
         } else {
           commit('preguntaNoEnviada', payload)
           commit('setError', response.body)
