@@ -56,7 +56,7 @@ export default {
       return this.$store.getters.loggedIn
     },
     preguntas () {
-      return this.$store.getters.preguntas
+      return this.$store.getters['preguntasEstudiante/preguntas']
     },
     habilitado () {
       return this.pregunta !== '' && this.pregunta !== undefined && this.loggedIn
@@ -77,7 +77,17 @@ export default {
         texto: this.pregunta,
         estado: 'enviando'
       }
-      this.$store.dispatch('anadirPregunta', pregunta)
+      // let paralelo =
+      // let creador =
+      // let paraleloId =
+      // const data = {
+      //   ...pregunta,
+      //   paralelo: 'asda',
+      //   creador: 'asdsa',
+      //   paraleloId: 'asdsad'
+      // }
+      this.$store.dispatch('preguntasEstudiante/anadirPregunta', pregunta)
+      // this.$store.commit('sockets/SOCKET_preguntaEstudiante', data)
       this.pregunta = ''
     },
     keypressed (e) {

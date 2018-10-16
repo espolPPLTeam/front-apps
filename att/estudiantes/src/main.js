@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import moment from 'moment'
+import io from 'socket.io-client'
 import VueSocketio from 'vue-socket.io'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
@@ -16,11 +17,11 @@ let url
 if (process.env.NODE_ENV === 'production') {
   url = '/att'
 } else {
-  url = 'http://localhost:8000/att'
+  url = 'http://localhost:8003/att'
 }
 
 Vue.use(Vuetify)
-Vue.use(VueSocketio, url, store)
+Vue.use(VueSocketio, io(url, { path: '/api/att/sockets' }), { store })
 
 Vue.component('navbar', Navbar)
 

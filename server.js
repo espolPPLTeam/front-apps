@@ -27,8 +27,11 @@ http.createServer(function (request, response) {
       basePath = 'ppl/estudiantes'
     } else if (filePath === '/assessment/profesores' || filePath.startsWith('/assessment/profesores')) {
       basePath = 'assessment/profesores'
+    } else if (filePath === '/att/profesores' || filePath.startsWith('/att/profesores')) {
+        basePath = 'att/profesores'
+    } else if (filePath === '/att/estudiantes' || filePath.startsWith('/att/estudiantes')) {
+        basePath = 'att/estudiantes'
     }
-
     const extname = path.extname(filePath)
     if (filePath == '/') {
         filePath = `./${basePath}/dist/index.html`
@@ -36,9 +39,15 @@ http.createServer(function (request, response) {
         filePath = `./${basePath}/dist/index.html`
     } else if (filePath.startsWith('/assessment/profesores')) {
         filePath = filePath.split('/').slice(3).join('/')
+    } else if (filePath === '/att/estudiantes' || filePath === '/att/profesores') {
+        filePath = `./${basePath}/dist/index.html`
+    } else if (filePath.startsWith('/att/estudiantes') || filePath.startsWith('/att/profesores')) {
+      filePath = filePath.split('/').slice(3).join('/')
     } else {
       filePath = filePath.split('/').slice(2).join('/')
     }
+
+    // ./att/estudiantes/dist/estudiantes/estudiantes/js/vendor.2cffdd77d6eef556dce9.js
 
     console.log(`basePath: ${basePath}`)
     

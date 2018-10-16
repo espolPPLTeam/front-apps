@@ -19,11 +19,11 @@ let url
 if (process.env.NODE_ENV === 'production') {
   url = '/att'
 } else {
-  url = 'http://localhost:8000/att'
+  url = 'http://localhost:8003/att'
 }
 
 Vue.use(Vuetify)
-Vue.use(VueSocketio, io(url), { store })
+Vue.use(VueSocketio, io(url, { path: '/api/att/sockets' }), { store })
 
 Vue.config.productionTip = false
 

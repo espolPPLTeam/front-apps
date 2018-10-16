@@ -8,6 +8,10 @@ export const ObtenerLeccionRealtimeDatos = () => fetch(`/api/estudiantes/leccion
 
 export const ObtenerDatosIniciales = () => fetch(`/api/estudiantes/leccion/datos_leccion`)
 
-export const VerificarCodigo = (codigo) => fetch(`/api/estudiantes/tomar_leccion/${codigo}`)
+export const VerificarCodigo = ({ paraleloId, correo, codigo }) => fetch(`/api/realtime/estudiante/verificarCodigo/${paraleloId}/${correo}/${codigo}`)
 
 export const Responder = (respuesta) => fetch(`/api/respuestas/`, respuesta, 'POST')
+
+export const Login = (payload) => fetch(`/api/login/session`, payload, 'POST')
+
+export const GetUsuario = (correo) => fetch(`/api/login/estudiantes/${correo}`)

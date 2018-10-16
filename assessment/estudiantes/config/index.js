@@ -11,22 +11,37 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
+      '/api/ppl': {
         logLevel: 'debug',
         target: 'http://localhost:8000',
         changeOrigin: true,
+        pathRewrite: {
+          '^/api/ppl': '/api/ppl'
+        }
+      },
+      '/api/realtime': {
+        logLevel: 'debug',
+        target: 'http://localhost:8011',
+        changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/api': '/api'
+          '^/api/realtime': '/api/realtime'
         }
       },
       '/imagenes': {
         logLevel: 'debug',
         target: 'http://localhost:8000',
         changeOrigin: true,
-        ws: true,
         pathRewrite: {
           '^/imagenes': '/imagenes'
+        }
+      },
+      '/api/login': {
+        logLevel: 'debug',
+        target: 'http://localhost:8001',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/login': '/api/login'
         }
       }
     },

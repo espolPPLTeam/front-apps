@@ -11,13 +11,21 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
+      '/api/att': {
         logLevel: 'debug',
-        target: 'http://localhost:8000',
+        target: 'http://localhost:8003',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/api': '/api'
+          '^/api/att': '/api/att'
+        }
+      },
+      '/api/login': {
+        logLevel: 'debug',
+        target: 'http://localhost:8001',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/login': '/api/login'
         }
       }
     },
@@ -58,8 +66,8 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: '.',
-    assetsPublicPath: '.',
+    assetsSubDirectory: './estudiantes',
+    assetsPublicPath: './estudiantes',
 
     /**
      * Source Maps

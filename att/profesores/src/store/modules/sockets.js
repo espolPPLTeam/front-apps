@@ -38,7 +38,7 @@ const actions = {
     })
     commit('setParaleloActual', paralelo, { root: true })
   },
-  socket_respuestaEstudiante ({state, commit, rootState}, data) {
+  SOCKET_respuestaEstudiante ({state, commit, rootState}, data) {
     data.show = false
     commit('respuestas/addRespuesta', data, { root: true })
     if (rootState.pagina !== 'Respuestas') {

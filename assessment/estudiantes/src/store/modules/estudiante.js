@@ -12,14 +12,16 @@ const EstudianteModule = {
     SET_ESTUDIANTE (state, payload) {
       state.nombres = payload.nombres
       state.apellidos = payload.apellidos
-      state.correo = payload.correo
+      state.correo = payload.email
       state.id = payload._id
     },
+    // FIXME: cambiar cuando el estudiante tenga varios paralelos
     SET_GRUPO (state, payload) {
-      state.grupoId = payload._id
+      state.grupoId = payload.grupos[0]
     },
+    // FIXME: cambiar cuando el estudiante tenga varios paralelos
     SET_PARALELO (state, payload) {
-      state.paraleloId = payload._id
+      state.paraleloId = payload.paralelos[0]
     }
   },
   getters: {

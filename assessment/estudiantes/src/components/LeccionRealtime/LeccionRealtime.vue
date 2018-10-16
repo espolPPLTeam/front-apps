@@ -1,14 +1,9 @@
 <template>
   <div id="leccion">
-    <app-nav :pregunta="preguntaActualNombre" :tiempo="tiempo" :leccionNombre="leccionNombre" :cantidadPreguntas="cantidadPreguntas"
+    <h1>sad</h1>
+<!--     <app-nav :pregunta="preguntaActualNombre" :tiempo="tiempo" :leccionNombre="leccionNombre" :cantidadPreguntas="cantidadPreguntas"
         v-on:pregunta="pestana($event)" :preguntaActualParent="activo" :preguntas="preguntas"
     ></app-nav>
-<!--     <el-tabs tab-position="right" style="height: 200px;">
-      <el-tab-pane label="Pregunta 1">Pregunta 1</el-tab-pane>
-      <el-tab-pane label="Pregunta 2">Pregunta 2</el-tab-pane>
-      <el-tab-pane label="Pregunta 3">Pregunta 3</el-tab-pane>
-      <el-tab-pane label="Pregunta 4">Pregunta 4</el-tab-pane>
-    </el-tabs> -->
     <v-container fluid style="min-height: 0;" grid-list-lg>
       <v-tabs :hide-slider="true" v-model="active"  fixed-tabs  v-touch="{
           left: () => next(),
@@ -106,7 +101,7 @@
       >
         Respuesta de {{preguntaActualNombre}} enviada
         <v-btn flat color="white" @click.native="snackbarResponder = false">Cerrar</v-btn>
-    </v-snackbar>
+    </v-snackbar> -->
   </div>
 </template>
 
@@ -329,10 +324,3 @@ export default {
 
 <style scoped>
 </style>
-
-<!-- // mediumZoom // usarla para lecciones vue-fullscreen' 'img-vuer' -->
-<!-- prueba de imagen como medium -->
-<!-- <img height="50px" src="https://pm1.narvii.com/6173/8d68f90a6ab1fe0588f9ff40ee133a35012ecb72_hq.jpg">
-    mediumZoom(this.$el.querySelector('img'), { scrollOffset: 0, metaClick: false, background: '#000' }) -->
-<!-- https://sparanoid.com/work/lightense-images/ -->
-<!-- https://github.com/fat/zoom.js/ -->

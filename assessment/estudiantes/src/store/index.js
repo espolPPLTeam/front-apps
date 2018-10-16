@@ -8,7 +8,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router'
 
-import { ObtenerDatosIniciales, ObtenerEstadosRealtime } from '@/api'
+import { ObtenerDatosIniciales, ObtenerEstadosRealtime, Login, GetUsuario } from '@/api'
 import getters from './getters'
 import LeccionesModule from './modules/lecciones'
 import EstudianteModule from './modules/estudiante'
@@ -55,12 +55,12 @@ export const store = new Vuex.Store({
       let leccionId = store.getters['realtime/leccion']['id']
       let paraleloId = store.getters['estudiante/paralelo']
       let io = store.getters['io']
-      io.emit('usuario estudiante', { estudianteId, leccionId, paraleloId })
+      io.emit('USUARIO', { estudianteId, leccionId, paraleloId })
     },
     SOCKET_EMPEZAR_LECCION (state, data) {
       router.push('/leccionRealtime')
     },
-    SOCKET_TERMINADO_LECCION (state, data) {
+    SOCKET_TERMINADA (state, data) {
       if (process.env.NODE_ENV === 'development') {
         router.push('/lecciones')
       } else if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'testing') {
@@ -69,6 +69,14 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    // IngresarCodigo ({commit, dispatch}, datos) {
+    //   return new Promise((resolve, reject) => {
+    //     IngresarCodigo(datos).then((resp) => {
+    //       console.log(resp)
+    //       resolve(true)
+    //     })
+    //   })
+    // },
     Inicializar ({commit, dispatch}) {
       return new Promise((resolve, reject) => {
         ObtenerDatosIniciales().then((resp) => {
@@ -106,6 +114,34 @@ export const store = new Vuex.Store({
         }).catch(error => {
           reject(error)
         })
+      })
+    },
+    Loggearse ({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+        Login({ email: payload.email, password: payload.password })
+          .then((token) => {
+            // commit('setHeaders', token)
+            localStorage.setItem('x-access-token', token)
+            localStorage.setItem('email', payload.email)
+            return resolve(true)
+          }, (err) => {
+            return reject(err.body)
+          })
+      })
+    },
+    GetUsuario ({ commit, dispatch }) {
+      return new Promise((resolve, reject) => {
+        let correo = localStorage.getItem('email')
+        GetUsuario(correo)
+          .then((res) => {
+            commit('estudiante/SET_ESTUDIANTE', res)
+            commit('estudiante/SET_GRUPO', res)
+            commit('estudiante/SET_PARALELO', res)
+            resolve(true)
+          }, (err) => {
+            commit('setError', err)
+            reject(err)
+          })
       })
     }
   },

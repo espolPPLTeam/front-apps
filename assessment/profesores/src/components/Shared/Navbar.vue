@@ -50,7 +50,7 @@
       <v-toolbar-title class="white--text">Sistema de Calificación y Desarrollo PPL</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>ATT</v-btn>
+        <!-- <v-btn flat>ATT</v-btn> -->
         <v-menu v-for="item in items" :key="item.id">
           <v-btn flat slot="activator">
             <span>{{ item.title }}</span>

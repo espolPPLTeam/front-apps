@@ -55,14 +55,21 @@
   </v-container>
 </template>
 <script>
+  var jwtDecode = require('jwt-decode')
   export default {
     methods: {
       att () {
-        // console.log('Redireccionando')
-        window.location.replace('/att')
+        let token = localStorage.getItem('x-access-token')
+        var decoded = jwtDecode(token)
+        console.log(decoded)
+        if (decoded.tipo === 'estudiante') {
+          window.location.replace('/att/estudiantes')
+        } else {
+          window.location.replace('/att/profesores')
+        }
       },
       assessment () {
-        window.location.replace('/assessment/profesores')
+        // window.location.replace('/assessment/profesores')
       }
     }
   }

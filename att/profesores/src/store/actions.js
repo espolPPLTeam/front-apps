@@ -1,9 +1,9 @@
 import Vue from 'vue'
-
+import router from '../router'
 export default {
-  getLoggedUser ({commit, dispatch, state}) {
+  getLoggedUser ({commit, dispatch, state}, email) {
     commit('setError', null)
-    Vue.http.get('/api/att/datosUsuario')
+    Vue.http.get('/api/att/datosUsuario/' + email)
       .then((response) => {
         commit('setLoading', false)
         if (response.body.estado) {
@@ -12,7 +12,7 @@ export default {
           const paraleloActual = response.body.datos.paralelos[0]
           commit('setParaleloActual', paraleloActual)
           commit('sockets/unirAParalelo', paraleloActual.id)
-          dispatch('getDatosProfesor', {paralelo: paraleloActual.id, correo: state.usuario.correo})
+          dispatch('getDatosProfesor', {paralelo: paraleloActual.id, correo: email})
         }
       }, (err) => {
         commit('setError', err)
@@ -32,6 +32,7 @@ export default {
     const urlApi = '/api/att/profesor/perfil/' + payload.paralelo + '/' + payload.correo
     Vue.http.get(urlApi)
       .then((response) => {
+        console.log('getDatosProfesor', response.body)
         commit('setLoading', false)
         if (response.body.estado) {
           commit('preguntas/setPreguntas', response.body.datos.preguntasEstudiantesHoy)
@@ -54,19 +55,19 @@ export default {
   login ({commit, state, dispatch}, payload) {
     commit('setError', null)
     commit('setLoading', true)
-    Vue.http.post('/api/att/login', {correo: payload.usuario})
-      .then((response) => {
-        if (response.body.estado) {
-          dispatch('getLoggedUser')
-        } else {
-          commit('setError', response.body)
+    return new Promise((resolve, reject) => {
+      Vue.http.post('/api/login/session', {email: payload.email, password: payload.password})
+        .then((resp) => {
+          commit('setHeaders', resp.body.datos)
+          localStorage.setItem('x-access-token', resp.body.datos)
+          localStorage.setItem('email', this.email)
+          return resolve(true)
+        }, (err) => {
           commit('setLoading', false)
-        }
-      }, (err) => {
-        commit('setLoading', false)
-        console.log('err:', err)
-        commit('setError', err)
-      })
+          console.log('err:', err)
+          commit('setError', err)
+        })
+    })
   },
   logout ({commit}, payload) {
     commit('setLoading', true)
@@ -85,6 +86,21 @@ export default {
         commit('setLoading', false)
         commit('setError', err)
         console.log(err)
+      })
+  },
+  getUsuario ({ commit, dispatch }) {
+    Vue.http.get('/api/login/session')
+      .then((res) => {
+        console.log(res.body)
+        commit('setUsuario', res.body.datos)
+        dispatch('getLoggedUser', res.body.datos.email)
+        // dispatch('getCapitulos')
+        // dispatch('lecciones/getLecciones')
+        if (process.env.NODE_ENV === 'development') {
+          router.push('/preguntas')
+        }
+      }, (err) => {
+        commit('setError', err)
       })
   },
   getPreguntasEstudiantesDia ({commit}, payload) {
